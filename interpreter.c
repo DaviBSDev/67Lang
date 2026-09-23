@@ -25,12 +25,12 @@ int interpret(char *path){
 	puts("error 67: not a valid program");
         return 2;
     }
-    char buffer[20000];
+    char buffer[40000];
     int cursor = 0;
-    int registers[10];
-    int debug_mode = 0;
+    float registers[10];
+    int debug_mode = 1;
     memset(registers, 0, sizeof(registers));
-    while (fgets(buffer, 20000, fptr) != NULL) {
+    while (fgets(buffer, 40000, fptr) != NULL) {
         buffer[strcspn(buffer, "\n")] = '\0';
     }
     fseek(fptr, 0, SEEK_END);
@@ -63,10 +63,10 @@ int interpret(char *path){
         }
         else{
             if (buffer[a] == '7' && !(wait)){
-                registers[cursor]++;
+                registers[cursor] += 0.5;
             }
             else if(buffer[a] == '6' && !(wait)){
-                registers[cursor]--;
+                registers[cursor] -= 0.5;
             }
         }
         if (buffer[a] == ' '){
@@ -103,17 +103,17 @@ int interpret(char *path){
     		navigation_mode = !(navigation_mode);
             }
         }
-        if (registers[9] != 0){
-	    if (registers[9] == 1){
-		printf("%c%c%c%c%c%c%c%c%c", registers[0], registers[1], registers[2], registers[3], registers[4], registers[5], registers[6], registers[7], registers[8]);
+        if ((int)registers[9] != 0){
+	    if ((int)registers[9] == 1){
+		printf("%c%c%c%c%c%c%c%c%c", (int)registers[0], (int)registers[1], (int)registers[2], (int)registers[3], (int)registers[4], (int)registers[5], (int)registers[6], (int)registers[7], (int)registers[8]);
             }
             registers[9] = 0;
         }
     }
     if (debug_mode){
-        printf("cursor final position: %d\n", cursor);
+        printf("#DEBUG MODE - TO DISABLE \nCHANGE debug_mode VARIABLE TO 0 \nAND RUN MAKE#\n\ncursor final position: %d\n", cursor);
         for (int a = 0; a < 10; a++){
-           printf("register %d value:%d\n", a, registers[a]);
+           printf("register %d value:%.2f\n", a, registers[a]);
         }
         printf("loop_mode: %d\nnavigation_mode:%d\n", loop_mode, navigation_mode);
     }
