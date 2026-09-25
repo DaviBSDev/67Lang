@@ -1,4 +1,7 @@
-![logo](https://github.com/DaviBSDev/67Lang/blob/main/logo.jpg)
+<div align="center">
+  <img src="https://github.com/DaviBSDev/67Lang/blob/main/logo.jpg" alt="logo" width="300">
+</div>
+
 
 # 67Lang
 67lang is an interpreted esoteric language, with its interpreter written in pure C.
